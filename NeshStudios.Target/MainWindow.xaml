@@ -1,0 +1,285 @@
+﻿<Window x:Class="NeshStudios.Target.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="800"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:target="clr-namespace:NeshStudios.Target"
+        xmlns:vm="clr-namespace:NeshStudios.Target.ViewModel"
+        xmlns:m="clr-namespace:NeshStudios.Target.Model;assembly=NeshStudios.Target"
+        xmlns:ns="clr-namespace:NeshStudios.Target;assembly=NeshStudios.Target"
+        
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:coll="clr-namespace:System.Collections.ObjectModel;assembly=System"
+        
+        >
+
+
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="BorderSelectedBrush" Color="#FF007ACC" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+
+        <DataTemplate DataType="{x:Type target:RelayCommand}">
+            <Button />
+        </DataTemplate>
+
+
+
+        <Style x:Key="RemoveSingleGroupButton" TargetType="{x:Type Button}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="NormalBackgroundBrush" Color="#00000000" />
+                <SolidColorBrush x:Key="NormalBorderBrush" Color="#FFFFFFFF" />
+                <SolidColorBrush x:Key="NormalForegroundBrush" Color="#FF8f949b" />
+
+                <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#FFc13535" />
+                <SolidColorBrush x:Key="HoverForegroundBrush" Color="#FFf9ebeb" />
+
+                <SolidColorBrush x:Key="PressedBackgroundBrush" Color="#FF431e20" />
+                <SolidColorBrush x:Key="PressedBorderBrush" Color="#FF110033" />
+                <SolidColorBrush x:Key="PressedForegroundBrush" Color="#FFf9ebeb" />
+            </Style.Resources>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="Transparent">
+
+                            <!-- The background of the button, as an ellipse. -->
+                            <Ellipse x:Name="backgroundEllipse" />
+                            <Path x:Name="ButtonPath"
+                                  Margin="3"
+                                  Stroke="{StaticResource NormalForegroundBrush}"
+                                  StrokeThickness="1.5"
+                                  StrokeStartLineCap="Square"
+                                  StrokeEndLineCap="Square"
+                                  Stretch="Uniform"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathGeometry.Figures>
+                                            <PathFigure StartPoint="0,0">
+                                                <LineSegment Point="25,25"/>
+                                            </PathFigure>
+                                            <PathFigure StartPoint="0,25">
+                                                <LineSegment Point="25,0"/>
+                                            </PathFigure>
+                                        </PathGeometry.Figures>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                Value="{StaticResource HoverBackgroundBrush}" />
+                                <Setter TargetName="ButtonPath" Property="Stroke" 
+                Value="{StaticResource HoverForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{StaticResource PressedBackgroundBrush}" />
+                                <Setter TargetName="backgroundEllipse" Property="Stroke"
+                                    Value="{StaticResource PressedBorderBrush}" />
+                                <Setter TargetName="ButtonPath" Property="Stroke" 
+                                    Value="{StaticResource PressedForegroundBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate DataType="{x:Type vm:FilterCriteriaViewModel}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" MaxWidth="300" MinWidth="200" />
+                </Grid.ColumnDefinitions>
+                <Button Width="15" Height="15" Style="{StaticResource RemoveSingleGroupButton}"   Grid.Column="0" Command="{Binding Path=DataContext.RemoveFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" />
+                <ComboBox  Grid.Column="1" Margin="2 0 0 0" ItemsSource="{Binding LogicalOperators}" SelectedItem="{Binding LogicalOperator, Mode=TwoWay}"  />
+                <ComboBox  Grid.Column="2" Margin="2 0 0 0" ItemsSource="{Binding PropertyNames}" SelectedItem="{Binding PropertyName, Mode=TwoWay}" />
+                <ComboBox  Grid.Column="3" Margin="2 0 0 0" ItemsSource="{Binding Operators}" SelectedItem="{Binding Operator, Mode=TwoWay}" />
+                <TextBox   Grid.Column="4" Margin="2 0 0 0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </DataTemplate>
+
+        <!--<HierarchicalDataTemplate x:Key="level1" DataType="{x:Type vm:FiltersViewModel}">-->
+        <HierarchicalDataTemplate x:Key="level1">
+            <target:HeaderFooterContentControl Style="{DynamicResource HeaderFooterContentControl}">
+                <target:HeaderFooterContentControl.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <ListBox 
+                        Grid.Row="0"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{Binding FilterCriterias}" >
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}" >
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                        <ItemsControl Margin="20 0 0 0" Grid.Row="1" ItemsSource="{Binding Filters}" ItemTemplate="{DynamicResource level2}" />
+                    </Grid>
+                </target:HeaderFooterContentControl.Content>
+                <target:HeaderFooterContentControl.Footer>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Single" Command="{Binding AddFilterCommand}" />
+                        <Button Content="Group" Command="{Binding AddGroupCommand}" />
+                    </StackPanel>
+                </target:HeaderFooterContentControl.Footer>
+            </target:HeaderFooterContentControl>
+        </HierarchicalDataTemplate>
+
+        <!--<HierarchicalDataTemplate x:Key="level2" DataType="{x:Type vm:FiltersViewModel}">-->
+        <HierarchicalDataTemplate x:Key="level2">
+            <target:HeaderFooterContentControl Style="{DynamicResource HeaderFooterContentControl}">
+                <target:HeaderFooterContentControl.Header>
+                    <Border x:Name="header_target">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Width="15" Height="15" Style="{StaticResource RemoveSingleGroupButton}"
+                                Command="{Binding DataContext.RemoveGroupCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type target:HeaderFooterContentControl},AncestorLevel=2}}" 
+                                CommandParameter="{Binding}"
+                                >
+                                <!--<Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=header_target, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>-->
+                            </Button>
+                            <ComboBox Grid.Column="1" HorizontalAlignment="Left"  Margin="2 0 0 0" Width="100"
+                                      ItemsSource="{Binding LogicalOperators}" SelectedItem="{Binding LogicalOperator, Mode=TwoWay}"
+                                      >
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+                </target:HeaderFooterContentControl.Header>
+                <target:HeaderFooterContentControl.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <ListBox 
+                        Grid.Row="0"
+                            Margin="20 0 0 0"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{Binding FilterCriterias}" >
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}" >
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                        <ItemsControl Margin="20 0 0 0" Grid.Row="1" ItemsSource="{Binding Filters}" ItemTemplate="{DynamicResource level2}" />
+                    </Grid>
+                </target:HeaderFooterContentControl.Content>
+                <target:HeaderFooterContentControl.Footer>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Single" Command="{Binding AddFilterCommand}" />
+                        <Button Content="Group" Command="{Binding AddGroupCommand}" />
+                    </StackPanel>
+                </target:HeaderFooterContentControl.Footer>
+            </target:HeaderFooterContentControl>
+        </HierarchicalDataTemplate>
+
+        <Style TargetType="{x:Type target:HeaderFooterContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type target:HeaderFooterContentControl}">
+                        <Border x:Name="RootBorder">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Border x:Name="header_custom"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Border.Style>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource BorderSelectedBrush}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <ContentControl Content="{TemplateBinding Header}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"></ContentControl>
+                                </Border>
+                                <ContentControl Content="{TemplateBinding Content}" Grid.Row="1" Grid.Column="0" />
+                                <ContentControl Content="{TemplateBinding Footer}" Grid.Row="2" Grid.Column="0" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" SourceName="header_custom">
+                                <Setter TargetName="RootBorder" Property="BorderBrush" Value="{StaticResource BorderSelectedBrush}" />
+                                <Setter TargetName="RootBorder" Property="BorderThickness" Value="1" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="HeaderedItemsControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="HeaderedItemsControl">
+                        <Grid x:Name="Root">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ContentControl x:Name="HeaderContent" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                            <ItemsPresenter x:Name="Items" Grid.Row="1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border>
+            <ScrollViewer>
+                <HeaderedItemsControl ItemsSource="{Binding FiltersTree}" ItemTemplate="{StaticResource level1}">
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Text="Filter" Height="25" Foreground="Gray" />
+                    </HeaderedItemsControl.Header>
+                </HeaderedItemsControl>
+            </ScrollViewer>
+        </Border>
+        
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Persons}" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" IsReadOnly="True" />
+
+    </Grid>
+</Window>
