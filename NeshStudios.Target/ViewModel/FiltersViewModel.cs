@@ -52,16 +52,15 @@ namespace NeshStudios.Target.ViewModel
 
         public FiltersViewModel()
         {
-            this.FilterCriterias = new ObservableCollection<FilterCriteriaViewModel>();
-            this.Filters = new ObservableCollection<FiltersViewModel<T>>();
+            this.Items = new ObservableCollection<object>();
 
             this.AddFilterCommand = new RelayCommand((o) =>
             {
-                var collection = this.FilterCriterias.Count == 0 ? LogicalOperatorCollection.CreateFirstCollection() : LogicalOperatorCollection.CreateNCollection();
-                var logicalOperator = this.FilterCriterias.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
+                var collection = this.Items.Count == 0 ? LogicalOperatorCollection.CreateFirstCollection() : LogicalOperatorCollection.CreateNCollection();
+                var logicalOperator = this.Items.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
                 
 
-                this.FilterCriterias.Add(new FilterCriteriaViewModel 
+                this.Items.Add(new FilterCriteriaViewModel 
                 {
                     LogicalOperators = collection,
                     LogicalOperator = logicalOperator, 
@@ -76,21 +75,21 @@ namespace NeshStudios.Target.ViewModel
                 var item = o as FilterCriteriaViewModel;
                 if ( item != null)
                 {
-                    this.FilterCriterias.Remove(item);
+                    this.Items.Remove(item);
                 }
             });
 
             this.AddGroupCommand = new RelayCommand((o) =>
             {
-                var collection = this.Filters.Count == 0 ? LogicalOperatorCollection.CreateFirstCollection() : LogicalOperatorCollection.CreateNCollection();
-                var logicalOperator = this.Filters.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
+                var collection = this.Items.Count == 0 ? LogicalOperatorCollection.CreateFirstCollection() : LogicalOperatorCollection.CreateNCollection();
+                var logicalOperator = this.Items.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
 
                 var fvm = new FiltersViewModel<T>();
                 fvm.LogicalOperators = collection;
                 fvm.LogicalOperator = logicalOperator;
 
                 fvm.AddFilterCommand.Execute(null);
-                this.Filters.Add(fvm);
+                this.Items.Add(fvm);
             });
 
 
@@ -99,46 +98,56 @@ namespace NeshStudios.Target.ViewModel
                 var item = o as FiltersViewModel<T>;
                 if (item != null)
                 {
-                    this.Filters.Remove(item);
+                    this.Items.Remove(item);
                 }
             });
+
+
+            this.AddCommands = new ObservableCollection<Tuple<string,ICommand>> 
+            { 
+                Tuple.Create("Single",this.AddFilterCommand), 
+                Tuple.Create("Group",this.AddGroupCommand), 
+            };
         }
 
-        private ObservableCollection<FilterCriteriaViewModel> _FilterCriterias;
+        private ObservableCollection<object> _Items;
 
-        public ObservableCollection<FilterCriteriaViewModel> FilterCriterias
+        public ObservableCollection<object> Items
         {
             get
             {
-                return _FilterCriterias;
+                return _Items;
             }
             set
             {
-                if (_FilterCriterias != value)
+                if (_Items != value)
                 {
-                    _FilterCriterias = value;
-                    OnPropertyChanged(() => this.FilterCriterias);
+                    _Items = value;
+                    OnPropertyChanged(() => this.Items);
                 }
             }
         }
 
-        private ObservableCollection<FiltersViewModel<T>> _Filters;
+        private ObservableCollection<Tuple<string,ICommand>> _AddCommands;
 
-        public ObservableCollection<FiltersViewModel<T>> Filters
+        public ObservableCollection<Tuple<string, ICommand>> AddCommands
         {
             get
             {
-                return _Filters;
+                return _AddCommands;
             }
             set
             {
-                if (_Filters != value)
+                if (_AddCommands != value)
                 {
-                    _Filters = value;
-                    OnPropertyChanged(() => this.Filters);
+                    _AddCommands = value;
+                    OnPropertyChanged(() => this.AddCommands);
                 }
             }
         }
+
+        
+
 
         public ICommand AddFilterCommand { get; set; }
         public ICommand RemoveFilterCommand { get; set; }

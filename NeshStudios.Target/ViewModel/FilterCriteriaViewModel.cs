@@ -64,14 +64,6 @@ namespace NeshStudios.Target.ViewModel
             }
         }
 
-        
-        
-
-
-        
-
-        
-
         private LogicalOperator _LogicalOperator;
 
         public LogicalOperator LogicalOperator

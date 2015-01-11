@@ -24,75 +24,6 @@
             <Button />
         </DataTemplate>
 
-
-
-        <Style x:Key="RemoveSingleGroupButton" TargetType="{x:Type Button}">
-            <Style.Resources>
-                <SolidColorBrush x:Key="NormalBackgroundBrush" Color="#00000000" />
-                <SolidColorBrush x:Key="NormalBorderBrush" Color="#FFFFFFFF" />
-                <SolidColorBrush x:Key="NormalForegroundBrush" Color="#FF8f949b" />
-
-                <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#FFc13535" />
-                <SolidColorBrush x:Key="HoverForegroundBrush" Color="#FFf9ebeb" />
-
-                <SolidColorBrush x:Key="PressedBackgroundBrush" Color="#FF431e20" />
-                <SolidColorBrush x:Key="PressedBorderBrush" Color="#FF110033" />
-                <SolidColorBrush x:Key="PressedForegroundBrush" Color="#FFf9ebeb" />
-            </Style.Resources>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid Background="Transparent">
-
-                            <!-- The background of the button, as an ellipse. -->
-                            <Ellipse x:Name="backgroundEllipse" />
-                            <Path x:Name="ButtonPath"
-                                  Margin="3"
-                                  Stroke="{StaticResource NormalForegroundBrush}"
-                                  StrokeThickness="1.5"
-                                  StrokeStartLineCap="Square"
-                                  StrokeEndLineCap="Square"
-                                  Stretch="Uniform"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Path.Data>
-                                    <PathGeometry>
-                                        <PathGeometry.Figures>
-                                            <PathFigure StartPoint="0,0">
-                                                <LineSegment Point="25,25"/>
-                                            </PathFigure>
-                                            <PathFigure StartPoint="0,25">
-                                                <LineSegment Point="25,0"/>
-                                            </PathFigure>
-                                        </PathGeometry.Figures>
-                                    </PathGeometry>
-                                </Path.Data>
-                            </Path>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="backgroundEllipse" Property="Fill"
-                Value="{StaticResource HoverBackgroundBrush}" />
-                                <Setter TargetName="ButtonPath" Property="Stroke" 
-                Value="{StaticResource HoverForegroundBrush}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="backgroundEllipse" Property="Fill"
-                                    Value="{StaticResource PressedBackgroundBrush}" />
-                                <Setter TargetName="backgroundEllipse" Property="Stroke"
-                                    Value="{StaticResource PressedBorderBrush}" />
-                                <Setter TargetName="ButtonPath" Property="Stroke" 
-                                    Value="{StaticResource PressedForegroundBrush}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <DataTemplate DataType="{x:Type vm:FilterCriteriaViewModel}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -110,7 +41,6 @@
             </Grid>
         </DataTemplate>
 
-        <!--<HierarchicalDataTemplate x:Key="level1" DataType="{x:Type vm:FiltersViewModel}">-->
         <HierarchicalDataTemplate x:Key="level1">
             <target:HeaderFooterContentControl Style="{DynamicResource HeaderFooterContentControl}">
                 <target:HeaderFooterContentControl.Content>
@@ -119,19 +49,7 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <ListBox 
-                        Grid.Row="0"
-                        BorderBrush="Transparent"
-                        BorderThickness="0"
-                        ItemsSource="{Binding FilterCriterias}" >
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}" >
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
-                        <ItemsControl Margin="20 0 0 0" Grid.Row="1" ItemsSource="{Binding Filters}" ItemTemplate="{DynamicResource level2}" />
+                        <ItemsControl Margin="20 0 0 0" Grid.Row="1" ItemsSource="{Binding Items}" ItemTemplate="{DynamicResource level2}" />
                     </Grid>
                 </target:HeaderFooterContentControl.Content>
                 <target:HeaderFooterContentControl.Footer>
@@ -181,20 +99,7 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <ListBox 
-                        Grid.Row="0"
-                            Margin="20 0 0 0"
-                        BorderBrush="Transparent"
-                        BorderThickness="0"
-                        ItemsSource="{Binding FilterCriterias}" >
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}" >
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
-                        <ItemsControl Margin="20 0 0 0" Grid.Row="1" ItemsSource="{Binding Filters}" ItemTemplate="{DynamicResource level2}" />
+                        <ItemsControl Margin="20 0 0 0" Grid.Row="1" ItemsSource="{Binding Items}" ItemTemplate="{DynamicResource level2}" />
                     </Grid>
                 </target:HeaderFooterContentControl.Content>
                 <target:HeaderFooterContentControl.Footer>
@@ -260,7 +165,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
 
     </Window.Resources>
 

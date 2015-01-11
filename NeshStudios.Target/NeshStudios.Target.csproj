@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\GeneralEnumConverter.cs" />
+    <Compile Include="Converters\ItemsDataTemplateSelector.cs" />
     <Compile Include="HeaderFooterContentControl.cs" />
     <Compile Include="Model\FilterCriteria.cs" />
     <Compile Include="Model\LogicalOperatorCollection.cs" />
@@ -88,6 +89,9 @@
     <Compile Include="ViewModel\FilterCriteriaViewModel.cs" />
     <Compile Include="ViewModel\FiltersViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,6 +107,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
