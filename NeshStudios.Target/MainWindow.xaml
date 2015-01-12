@@ -170,10 +170,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition  />
         </Grid.RowDefinitions>
-        <Border>
+
+        <Button Grid.Row="0" Content="Query" Command="{Binding QueryCommand}" Height="20" />
+
+        <Border Grid.Row="1">
             <ScrollViewer>
                 <HeaderedItemsControl ItemsSource="{Binding FiltersTree}" ItemTemplate="{StaticResource level1}">
                     <HeaderedItemsControl.Header>
@@ -183,7 +187,9 @@
             </ScrollViewer>
         </Border>
         
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Persons}" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" IsReadOnly="True" />
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Persons}" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" IsReadOnly="True" />
+
+        
 
     </Grid>
 </Window>

@@ -28,6 +28,25 @@ namespace NeshStudios.Target.ViewModel
             }
         }
 
+        private ObservableCollection<Person> _MasterList;
+
+        public ObservableCollection<Person> MasterList
+        {
+            get
+            {
+                return _MasterList;
+            }
+            set
+            {
+                if (_MasterList != value)
+                {
+                    _MasterList = value;
+                    OnPropertyChanged(() => this.MasterList);
+                }
+            }
+        }
+
+        
 
 
 
@@ -49,13 +68,19 @@ namespace NeshStudios.Target.ViewModel
             }
         }
 
-        
+        public ICommand QueryCommand { get; set; }
 
         public MainWindowViewModel()
         {
+            QueryCommand = new RelayCommand((o) =>
+            {
+                var list = FiltersViewModelExtensions.CreateLambda(this.FiltersTree[0], MasterList);
+                this.Persons = new ObservableCollection<Person>(list);
+            });
+
             FiltersTree = new ObservableCollection<FiltersViewModel<Person>>() { new FiltersViewModel<Person>() };
 
-            this.Persons = new ObservableCollection<Person>()
+            this.MasterList = new ObservableCollection<Person>()
             {
                 new Person 
                 { 
@@ -69,7 +94,7 @@ namespace NeshStudios.Target.ViewModel
                     }, 
                     Age=21, 
                     FirstName="Dhinesh", 
-                    LastName="Devanatahn"
+                    LastName="Devanathan"
                 },
                 new Person 
                 { 
@@ -82,8 +107,8 @@ namespace NeshStudios.Target.ViewModel
                         Zip = "23451",
                     }, 
                     Age=21, 
-                    FirstName="Dhinesh", 
-                    LastName="Devanatahn"
+                    FirstName="Greg", 
+                    LastName="Yen"
                 },
                 new Person 
                 { 
@@ -96,10 +121,12 @@ namespace NeshStudios.Target.ViewModel
                         Zip = "23451",
                     }, 
                     Age=21, 
-                    FirstName="Dhinesh", 
-                    LastName="Devanatahn"
+                    FirstName="Harija", 
+                    LastName="Yalamanchi"
                 },
             };
+
+            this.Persons = new ObservableCollection<Person>(MasterList);
         }
     }
 }

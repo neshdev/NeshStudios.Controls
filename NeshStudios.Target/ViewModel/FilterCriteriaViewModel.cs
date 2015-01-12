@@ -135,5 +135,69 @@ namespace NeshStudios.Target.ViewModel
                 }
             }
         }
+
+        private object _SearchObject;
+
+        public object SearchObject
+        {
+            get
+            {
+                return _SearchObject;
+            }
+            set
+            {
+                if (_SearchObject != value)
+                {
+                    _SearchObject = value;
+                    OnPropertyChanged(() => this.SearchObject);
+                }
+            }
+        }
+
+        private Type _Type;
+
+        public Type Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                if (_Type != value)
+                {
+                    _Type = value;
+                    OnPropertyChanged(() => this.Type);
+                }
+            }
+        }
+
+
+
+
+
+        private bool _IsCaseInsensitive;
+
+        public bool IsCaseInsensitive
+        {
+            get
+            {
+                return _IsCaseInsensitive;
+            }
+            set
+            {
+                if (_IsCaseInsensitive != value)
+                {
+                    _IsCaseInsensitive = value;
+                    OnPropertyChanged(() => this.IsCaseInsensitive);
+                }
+            }
+        }
+
+        
+
+        
+
+        
     }
 }

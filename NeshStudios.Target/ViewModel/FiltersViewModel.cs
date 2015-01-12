@@ -67,6 +67,7 @@ namespace NeshStudios.Target.ViewModel
                     Operators = OperatorCollection.CreateFirstCollection(),
                     Operator = Operator.Equals,
                     PropertyNames = properties,
+                    Type = typeof(T),
                 });
             });
 

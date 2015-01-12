@@ -50,12 +50,60 @@ namespace NeshStudios.Target.Model
             Operator.IsGreaterThanOrEqualTo,
             Operator.IsLessThanOrEqualTo,
         };
+
+        private static OperatorCollection _StringOperatorCollection = new OperatorCollection()
+        {
+            Operator.Contains,
+            Operator.DoesNotContain,
+            Operator.StartsWith,
+            Operator.EndsWith,
+            Operator.Equals,
+            Operator.DoesNotEqual,
+        };
+
+        private static OperatorCollection _NumberCollection = new OperatorCollection()
+        {
+            Operator.Equals,
+            Operator.DoesNotEqual,
+            Operator.IsGreaterThan,
+            Operator.IsLessThan,
+            Operator.IsGreaterThanOrEqualTo,
+            Operator.IsLessThanOrEqualTo,
+        };
+
+        private static OperatorCollection _DateCollection = new OperatorCollection()
+        {
+            Operator.Equals,
+            Operator.DoesNotEqual,
+            Operator.IsGreaterThan,
+            Operator.IsLessThan,
+            Operator.IsGreaterThanOrEqualTo,
+            Operator.IsLessThanOrEqualTo,
+        };
             
 
         public static OperatorCollection CreateFirstCollection()
         {
             return _OperatorCollection;
         }
+
+        public static OperatorCollection CreateStringCollection()
+        {
+            return _StringOperatorCollection;
+        }
+
+        public static OperatorCollection CreateNumberCollection()
+        {
+            return _NumberCollection;
+        }
+        
+
+        public static OperatorCollection CreateDateCollection()
+        {
+            return _DateCollection;
+        }
+
+
     }
 
 
