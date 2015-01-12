@@ -15,6 +15,10 @@ namespace NeshStudios.Target
         public int Age { get; set; }
 
         public Address Address { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
+        public Boolean IsActive { get; set; }
     }
 
     public class Address

@@ -94,7 +94,9 @@ namespace NeshStudios.Target.ViewModel
                     }, 
                     Age=21, 
                     FirstName="Dhinesh", 
-                    LastName="Devanathan"
+                    LastName="Devanathan",
+                    BirthDate=DateTime.Now.Date,
+                    IsActive = true,
                 },
                 new Person 
                 { 
@@ -108,7 +110,9 @@ namespace NeshStudios.Target.ViewModel
                     }, 
                     Age=21, 
                     FirstName="Greg", 
-                    LastName="Yen"
+                    LastName="Yen",
+                    BirthDate=DateTime.Now.AddDays(20).Date,
+                    IsActive = true,
                 },
                 new Person 
                 { 
@@ -122,7 +126,9 @@ namespace NeshStudios.Target.ViewModel
                     }, 
                     Age=21, 
                     FirstName="Harija", 
-                    LastName="Yalamanchi"
+                    LastName="Yalamanchi",
+                    BirthDate=DateTime.Now.AddDays(-20).Date,
+                    IsActive = false,
                 },
             };
 

@@ -80,6 +80,12 @@ namespace NeshStudios.Target.Model
             Operator.IsGreaterThanOrEqualTo,
             Operator.IsLessThanOrEqualTo,
         };
+
+        private static OperatorCollection _BoolCollection = new OperatorCollection()
+        {
+            Operator.Equals,
+            Operator.DoesNotEqual,
+        };
             
 
         public static OperatorCollection CreateFirstCollection()
@@ -101,6 +107,11 @@ namespace NeshStudios.Target.Model
         public static OperatorCollection CreateDateCollection()
         {
             return _DateCollection;
+        }
+
+        public static OperatorCollection CreateBoolCollection()
+        {
+            return _BoolCollection;
         }
 
 

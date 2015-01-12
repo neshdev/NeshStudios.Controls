@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeshStudios.Target.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,11 @@ namespace NeshStudios.Target.Converters
         {
             FrameworkElement element = container as FrameworkElement;
 
-            if (element != null && item != null && item is DateTime)
+            if (element != null && item != null && typeof(DateTime) == (Type)item )
             {
                 return element.FindResource("DateTimeDataTemplate") as DataTemplate;
             }
-            else if (element != null && item != null && item is bool)
+            else if (element != null && item != null && typeof(Boolean) == (Type)item)
             {
                 return element.FindResource("BooleanDataTemplate") as DataTemplate;
             }

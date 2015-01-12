@@ -16,13 +16,14 @@ namespace NeshStudios.Target.ViewModel
             MethodInfo method = null;
             ParameterExpression pe = Expression.Parameter(vm.Type, "x");
             Expression property = Expression.Property(pe, vm.Type.GetProperty(vm.PropertyName));
-            Expression constant = Expression.Constant(vm.SearchText);
+            vm.SearchObject = Convert.ChangeType(vm.SearchObject, vm.PropertyType);
+            Expression constant = Expression.Constant(vm.SearchObject, vm.PropertyType);
 
-            if ( vm.IsCaseInsensitive == false)
+            if (vm.IsCaseInsensitive == false && vm.Type.GetProperty(vm.PropertyName).PropertyType == typeof(string))
             {
                 method = typeof(string).GetMethod("ToLower", System.Type.EmptyTypes);
                 property = Expression.Call(property, method);
-                constant = Expression.Constant(vm.SearchText.ToLower());
+                constant = Expression.Constant(((String)vm.SearchObject).ToLower());
             }
             
             switch (vm.Operator)

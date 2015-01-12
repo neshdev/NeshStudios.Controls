@@ -10,6 +10,53 @@ namespace NeshStudios.Target.ViewModel
 {
     public class FilterCriteriaViewModel : NotificationObject
     {
+        public Type PropertyType
+        {
+            get
+            {
+                if (this.PropertyName == null)
+                {
+                    return typeof(string);
+                }
+                else
+                {
+                    return this.Type.GetProperty(this.PropertyName).PropertyType;
+                }
+            }
+        }
+        
+
+        public OperatorCollection OperatorCollection
+        {
+            get
+            {
+                if (this.PropertyName == null)
+                    return OperatorCollection.CreateFirstCollection();
+
+                var type = this.PropertyType;
+                if (typeof(string) == type || typeof(char) == type)
+                {
+                    return OperatorCollection.CreateStringCollection();
+                }
+                else if (typeof(int) == type || typeof(double) == type || typeof(float) == type || typeof(decimal) == type)
+                {
+                    return OperatorCollection.CreateNumberCollection();
+                }
+                else if (typeof(DateTime) == type)
+                {
+                    return OperatorCollection.CreateDateCollection();
+                }
+                else if (typeof(bool) == type)
+                {
+                    return OperatorCollection.CreateBoolCollection();
+                }       
+                else
+                {
+                    return OperatorCollection.CreateFirstCollection();
+                }
+            }
+        }
+
         private LogicalOperatorCollection _LogicalOperators;
 
         public LogicalOperatorCollection LogicalOperators
@@ -24,24 +71,6 @@ namespace NeshStudios.Target.ViewModel
                 {
                     _LogicalOperators = value;
                     OnPropertyChanged(() => this.LogicalOperators);
-                }
-            }
-        }
-
-        private OperatorCollection _Operators;
-
-        public OperatorCollection Operators
-        {
-            get
-            {
-                return _Operators;
-            }
-            set
-            {
-                if (_Operators != value)
-                {
-                    _Operators = value;
-                    OnPropertyChanged(() => this.Operators);
                 }
             }
         }
@@ -96,6 +125,8 @@ namespace NeshStudios.Target.ViewModel
                 {
                     _PropertyName = value;
                     OnPropertyChanged(() => this.PropertyName);
+                    OnPropertyChanged(() => this.PropertyType);
+                    OnPropertyChanged(() => this.OperatorCollection);
                 }
             }
         }
@@ -114,24 +145,6 @@ namespace NeshStudios.Target.ViewModel
                 {
                     _Operator = value;
                     OnPropertyChanged(() => this.Operator);
-                }
-            }
-        }
-
-        private string _SearchText;
-
-        public string SearchText
-        {
-            get
-            {
-                return _SearchText;
-            }
-            set
-            {
-                if (_SearchText != value)
-                {
-                    _SearchText = value;
-                    OnPropertyChanged(() => this.SearchText);
                 }
             }
         }

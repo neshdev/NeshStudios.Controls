@@ -64,7 +64,6 @@ namespace NeshStudios.Target.ViewModel
                 {
                     LogicalOperators = collection,
                     LogicalOperator = logicalOperator, 
-                    Operators = OperatorCollection.CreateFirstCollection(),
                     Operator = Operator.Equals,
                     PropertyNames = properties,
                     Type = typeof(T),
