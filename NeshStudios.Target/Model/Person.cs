@@ -19,6 +19,8 @@ namespace NeshStudios.Target
         public DateTime BirthDate { get; set; }
 
         public Boolean IsActive { get; set; }
+
+        public List<Invoice> Invoices { get; set; }
     }
 
     public class Address
@@ -28,5 +30,11 @@ namespace NeshStudios.Target
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+    }
+
+    public class Invoice
+    {
+        public string ItemName { get; set; }
+        public decimal Price { get; set; }
     }
 }

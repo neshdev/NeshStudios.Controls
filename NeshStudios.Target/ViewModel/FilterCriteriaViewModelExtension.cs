@@ -15,11 +15,18 @@ namespace NeshStudios.Target.ViewModel
             Expression operatorExpression = null;
             MethodInfo method = null;
             ParameterExpression pe = Expression.Parameter(vm.Type, "x");
-            Expression property = Expression.Property(pe, vm.Type.GetProperty(vm.PropertyName));
+
+            Expression body = pe;
+            foreach (var member in vm.PropertyName.Split('.'))
+            {
+                body = Expression.PropertyOrField(body, member);
+            }
+
+            Expression property = body;
             vm.SearchObject = Convert.ChangeType(vm.SearchObject, vm.PropertyType);
             Expression constant = Expression.Constant(vm.SearchObject, vm.PropertyType);
 
-            if (vm.IsCaseInsensitive == false && vm.Type.GetProperty(vm.PropertyName).PropertyType == typeof(string))
+            if (vm.IsCaseInsensitive == false && vm.PropertyType == typeof(string))
             {
                 method = typeof(string).GetMethod("ToLower", System.Type.EmptyTypes);
                 property = Expression.Call(property, method);
@@ -55,8 +62,9 @@ namespace NeshStudios.Target.ViewModel
                     operatorExpression = Expression.Call(property, method, constant);
                     break;
                 case NeshStudios.Target.Model.Operator.DoesNotContain:
-                    method = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
+                    method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
                     operatorExpression = Expression.Call(property, method, constant);
+                    operatorExpression = Expression.Not(operatorExpression);
                     break;
                 case NeshStudios.Target.Model.Operator.EndsWith:
                     method = typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
@@ -70,6 +78,9 @@ namespace NeshStudios.Target.ViewModel
 
             switch (vm.LogicalOperator)
             {
+                case Model.LogicalOperator.WhereNot:
+                    operatorExpression = Expression.Not(operatorExpression);
+                    break;
                 case NeshStudios.Target.Model.LogicalOperator.AndNot:
                     operatorExpression = Expression.Not(operatorExpression);
                     break;

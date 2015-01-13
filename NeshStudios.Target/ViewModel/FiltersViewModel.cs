@@ -48,10 +48,36 @@ namespace NeshStudios.Target.ViewModel
             }
         }
 
-        List<string> properties = typeof(T).GetProperties().Select(x => x.Name).ToList();
+
+        private void CreatePropertyList(Type t, List<string> values, string baseName)
+        {
+            foreach (var item in t.GetProperties())
+            {
+                var propertyName = item.Name;
+
+                if (item.PropertyType.IsClass && !(item.PropertyType.Module.ScopeName == "CommonLanguageRuntimeLibrary"))
+                {
+                    this.CreatePropertyList(item.PropertyType, values, propertyName + ".");
+                }                
+                else
+                {
+                    values.Add(baseName + propertyName);
+                }
+            }
+        }
+
+
+        List<string> properties;
 
         public FiltersViewModel()
         {
+            var list = new List<string>();
+            CreatePropertyList(typeof(T), list , string.Empty);
+            properties = list;
+                
+                //typeof(T).GetProperties().Select(x => x.Name).ToList();
+
+
             this.Items = new ObservableCollection<object>();
 
             this.AddFilterCommand = new RelayCommand((o) =>
@@ -62,7 +88,7 @@ namespace NeshStudios.Target.ViewModel
 
                 this.Items.Add(new FilterCriteriaViewModel 
                 {
-                    LogicalOperators = collection,
+                    LogicalOperators = new LogicalOperatorCollection(collection),
                     LogicalOperator = logicalOperator, 
                     Operator = Operator.Equals,
                     PropertyNames = properties,
@@ -85,7 +111,7 @@ namespace NeshStudios.Target.ViewModel
                 var logicalOperator = this.Items.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
 
                 var fvm = new FiltersViewModel<T>();
-                fvm.LogicalOperators = collection;
+                fvm.LogicalOperators = new LogicalOperatorCollection(collection);
                 fvm.LogicalOperator = logicalOperator;
 
                 fvm.AddFilterCommand.Execute(null);

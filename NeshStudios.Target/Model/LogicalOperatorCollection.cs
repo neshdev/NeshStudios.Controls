@@ -9,6 +9,22 @@ namespace NeshStudios.Target.Model
 {
     public class LogicalOperatorCollection : ObservableCollection<LogicalOperator>
     {
+
+        public LogicalOperatorCollection(IEnumerable<LogicalOperator> operators)
+        {
+            foreach (var item in operators)
+            {
+                this.Add(item);
+            }
+        }
+
+        public LogicalOperatorCollection()
+            : base ()
+        {
+
+        }
+
+
         private static LogicalOperatorCollection _LogicalOperatorCollection1= new LogicalOperatorCollection()
         {
             LogicalOperator.Where,
@@ -36,6 +52,20 @@ namespace NeshStudios.Target.Model
 
     public class OperatorCollection : ObservableCollection<Operator>
     {
+        public OperatorCollection(IEnumerable<Operator> operators)
+        {
+            foreach (var item in operators)
+            {
+                this.Add(item);
+            }
+        }
+
+        public OperatorCollection()
+            : base ()
+        {
+
+        }
+
 
         private static OperatorCollection _OperatorCollection = new OperatorCollection()
         {

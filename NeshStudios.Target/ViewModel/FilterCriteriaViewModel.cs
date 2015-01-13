@@ -20,9 +20,47 @@ namespace NeshStudios.Target.ViewModel
                 }
                 else
                 {
-                    return this.Type.GetProperty(this.PropertyName).PropertyType;
+                    var results = FollowPropertyPath(this.Type, this.PropertyName);
+                    return results;
+                    //return this.Type.GetProperty(this.PropertyName).PropertyType;
                 }
             }
+        }
+
+        public static Type FollowPropertyPath(Type currentType, string path)
+        {
+            if (path == null) throw new ArgumentNullException("path");
+
+            foreach (string propertyName in path.Split('.'))
+            {
+                int brackStart = propertyName.IndexOf("[");
+
+                var property = currentType.GetProperty(brackStart > 0 ? propertyName.Substring(0, brackStart) : propertyName);
+
+                if (property == null)
+                    return null;
+
+                currentType = property.PropertyType;
+
+                if (brackStart > 0)
+                {
+                    foreach (Type iType in currentType.GetInterfaces())
+                    {
+                        if (iType.IsGenericType && iType.GetGenericTypeDefinition() == typeof(IDictionary<,>))
+                        {
+                            currentType = iType.GetGenericArguments()[1];
+                            break;
+                        }
+                        if (iType.IsGenericType && iType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                        {
+                            currentType = iType.GetGenericArguments()[0];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return currentType;
         }
         
 
@@ -31,28 +69,28 @@ namespace NeshStudios.Target.ViewModel
             get
             {
                 if (this.PropertyName == null)
-                    return OperatorCollection.CreateFirstCollection();
+                    return new OperatorCollection(OperatorCollection.CreateFirstCollection());
 
                 var type = this.PropertyType;
                 if (typeof(string) == type || typeof(char) == type)
                 {
-                    return OperatorCollection.CreateStringCollection();
+                    return new OperatorCollection(OperatorCollection.CreateStringCollection());
                 }
                 else if (typeof(int) == type || typeof(double) == type || typeof(float) == type || typeof(decimal) == type)
                 {
-                    return OperatorCollection.CreateNumberCollection();
+                    return new OperatorCollection(OperatorCollection.CreateNumberCollection());
                 }
                 else if (typeof(DateTime) == type)
                 {
-                    return OperatorCollection.CreateDateCollection();
+                    return new OperatorCollection(OperatorCollection.CreateDateCollection());
                 }
                 else if (typeof(bool) == type)
                 {
-                    return OperatorCollection.CreateBoolCollection();
+                    return new OperatorCollection(OperatorCollection.CreateBoolCollection());
                 }       
                 else
                 {
-                    return OperatorCollection.CreateFirstCollection();
+                    return new OperatorCollection(OperatorCollection.CreateFirstCollection());
                 }
             }
         }

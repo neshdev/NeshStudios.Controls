@@ -87,6 +87,10 @@
     <Compile Include="NotificationObject.cs" />
     <Compile Include="Model\Operator.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="DragDropUtil\DragDropHelper.cs" />
+    <Compile Include="DragDropUtil\DraggedAdorner.cs" />
+    <Compile Include="DragDropUtil\InsertionAdorner.cs" />
+    <Compile Include="DragDropUtil\Utilities.cs" />
     <Compile Include="ViewModel\FilterCriteriaViewModel.cs" />
     <Compile Include="ViewModel\FilterCriteriaViewModelExtension.cs" />
     <Compile Include="ViewModel\FiltersViewModel.cs" />

@@ -14,6 +14,7 @@ namespace NeshStudios.Target.ViewModel
         {
             if ( fvm.Items.Count == 0)
             {
+                return list.AsQueryable<T>();
                 throw new NotImplementedException("invalid");
             }
 
@@ -33,6 +34,14 @@ namespace NeshStudios.Target.ViewModel
                             break;
                         case NeshStudios.Target.Model.LogicalOperator.Or:
                             expressionRoot = expressionRoot.Or(expression);
+                            break;
+                        case NeshStudios.Target.Model.LogicalOperator.AndNot:
+                            var predicateFalse = PredicateBuilder.False<T>();
+                            expressionRoot = predicateFalse.And(expression);
+                            break;
+                        case NeshStudios.Target.Model.LogicalOperator.OrNot:
+                            var predicateTrue = PredicateBuilder.False<T>();
+                            expressionRoot = predicateTrue.And(expression);
                             break;
                         default:
                             break;
@@ -89,91 +98,99 @@ namespace NeshStudios.Target.ViewModel
     }
 
 
-    public static class Utility
-    {
-
-        public static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second, Func<Expression, Expression, Expression> merge)
-        {
-
-            // build parameter map (from parameters of second to parameters of first)
-
-            var map = first.Parameters.Select((f, i) => new { f, s = second.Parameters[i] }).ToDictionary(p => p.s, p => p.f);
-
-
-
-            // replace parameters in the second lambda expression with parameters from the first
-
-            var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
-
-
-
-            // apply composition of lambda expression bodies to parameters from the first expression 
-
-            return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
-
-        }
-
-
-
-        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
-        {
-
-            return first.Compose(second, Expression.And);
-
-        }
-
-
-
-        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
-        {
-
-            return first.Compose(second, Expression.Or);
-
-        }
-
-        public static Expression<Func<T, bool>> OrElse<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
-        {
-
-            return first.Compose(second, Expression.Or);
-
-        }
-
-        public static Expression<Func<T, bool>> BuildAnd<T>(params Expression<Func<T, bool>>[] conditions)
-        {
-            return conditions.Aggregate<Expression<Func<T, bool>>, Expression<Func<T, bool>>>(null, (current, expression) => current == null ? expression : current.And(expression));
-        }
-
-        public static Expression<Func<T, bool>> BuildOr<T>(params Expression<Func<T, bool>>[] conditions)
-        {
-            return conditions.Aggregate<Expression<Func<T, bool>>, Expression<Func<T, bool>>>(null, (current, expression) => current == null ? expression : current.Or(expression));
-        }
-
-        public static Expression<Func<T, bool>> BuildOrElse<T>(params Expression<Func<T, bool>>[] conditions)
-        {
-            return conditions.Aggregate<Expression<Func<T, bool>>, Expression<Func<T, bool>>>(null, (current, expression) => current == null ? expression : current.OrElse(expression));
-        }
-
-    }
-
-    //public static class PredicateBuilder
+    //public static class Utility
     //{
-    //    public static Expression<Func<T, bool>> True<T>() { return f => true; }
-    //    public static Expression<Func<T, bool>> False<T>() { return f => false; }
 
-    //    public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expr1,
-    //                                                        Expression<Func<T, bool>> expr2)
+    //    public static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second, Func<Expression, Expression, Expression> merge)
     //    {
-    //        var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
-    //        return Expression.Lambda<Func<T, bool>>
-    //              (Expression.OrElse(expr1.Body, invokedExpr), expr1.Parameters);
+
+    //        // build parameter map (from parameters of second to parameters of first)
+
+    //        var map = first.Parameters.Select((f, i) => new { f, s = second.Parameters[i] }).ToDictionary(p => p.s, p => p.f);
+
+
+
+    //        // replace parameters in the second lambda expression with parameters from the first
+
+    //        var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
+
+
+
+    //        // apply composition of lambda expression bodies to parameters from the first expression 
+
+    //        return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
+
     //    }
 
-    //    public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> expr1,
-    //                                                         Expression<Func<T, bool>> expr2)
+
+
+    //    public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
     //    {
-    //        var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
-    //        return Expression.Lambda<Func<T, bool>>
-    //              (Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
+
+    //        return first.Compose(second, Expression.And);
+
     //    }
+
+
+
+    //    public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
+    //    {
+
+    //        return first.Compose(second, Expression.Or);
+
+    //    }
+
+    //    public static Expression<Func<T, bool>> OrElse<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
+    //    {
+
+    //        return first.Compose(second, Expression.Or);
+
+    //    }
+
+    //    public static Expression<Func<T, bool>> BuildAnd<T>(params Expression<Func<T, bool>>[] conditions)
+    //    {
+    //        return conditions.Aggregate<Expression<Func<T, bool>>, Expression<Func<T, bool>>>(null, (current, expression) => current == null ? expression : current.And(expression));
+    //    }
+
+    //    public static Expression<Func<T, bool>> BuildOr<T>(params Expression<Func<T, bool>>[] conditions)
+    //    {
+    //        return conditions.Aggregate<Expression<Func<T, bool>>, Expression<Func<T, bool>>>(null, (current, expression) => current == null ? expression : current.Or(expression));
+    //    }
+
+    //    public static Expression<Func<T, bool>> BuildOrElse<T>(params Expression<Func<T, bool>>[] conditions)
+    //    {
+    //        return conditions.Aggregate<Expression<Func<T, bool>>, Expression<Func<T, bool>>>(null, (current, expression) => current == null ? expression : current.OrElse(expression));
+    //    }
+
     //}
+
+    public static class PredicateBuilder
+    {
+        public static Expression<Func<T, bool>> True<T>() { return f => true; }
+        public static Expression<Func<T, bool>> False<T>() { return f => false; }
+
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expr1,
+                                                            Expression<Func<T, bool>> expr2)
+        {
+            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
+            return Expression.Lambda<Func<T, bool>>
+                  (Expression.OrElse(expr1.Body, invokedExpr), expr1.Parameters);
+        }
+
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> expr1,
+                                                             Expression<Func<T, bool>> expr2)
+        {
+            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
+            return Expression.Lambda<Func<T, bool>>
+                  (Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
+        }
+
+        public static Expression<Func<T, bool>> AndNot<T>(this Expression<Func<T, bool>> expr1,
+                                                     Expression<Func<T, bool>> expr2)
+        {
+            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
+            return Expression.Lambda<Func<T, bool>>
+                 (Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
+        }
+    }
 }

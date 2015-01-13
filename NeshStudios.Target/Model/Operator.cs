@@ -21,10 +21,10 @@ namespace NeshStudios.Target.Model
         [Description("<(is less than)")]
         IsLessThan,
 
-        [Description(">=(is greater than or qqual to)")]
+        [Description(">=(is greater than or equal to)")]
         IsGreaterThanOrEqualTo,
 
-        [Description("<=(is less than or qqual to)")]
+        [Description("<=(is less than or equal to)")]
         IsLessThanOrEqualTo,
 
         [Description("(starts with)")]
