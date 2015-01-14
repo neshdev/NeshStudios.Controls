@@ -18,10 +18,11 @@ namespace NeshStudios.Custom.ViewModel
                 throw new ArgumentException("PropertyName cannot be empty or null");
             }
 
-            if (!fcvm.PropertyNames.Any(x=> x == fcvm.PropertyName))
-            {
-                throw new ArgumentException("PropertyName does not exists in class " + fcvm.Type.Name);
-            }
+            //todo write test case for this
+            //if (!fcvm.PropertyNames.Any(x=> x == fcvm.PropertyName))
+            //{
+            //    throw new ArgumentException("PropertyName does not exists in class " + fcvm.Type.Name);
+            //}
 
             if ( fcvm.SearchObject == null)
             {

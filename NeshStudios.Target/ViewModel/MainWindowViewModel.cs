@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using NeshStudios.Target.Common;
+using NeshStudios.Custom.ViewModel;
+using NeshStudios.Custom.Framework;
 
 namespace NeshStudios.Target.ViewModel
 {

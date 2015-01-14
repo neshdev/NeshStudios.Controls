@@ -1,12 +1,8 @@
 ﻿<Window x:Class="NeshStudios.Target.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:target="clr-namespace:NeshStudios.Target"
-        xmlns:vm="clr-namespace:NeshStudios.Target.ViewModel"
-        xmlns:m="clr-namespace:NeshStudios.Target.Model;assembly=NeshStudios.Target"
-        xmlns:templates="clr-namespace:NeshStudios.Target.Converters"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:dd="clr-namespace:NeshStudios.Target.DragDropUtil"
+        xmlns:ns="clr-namespace:NeshStudios.Custom.CustomControls;assembly=NeshStudios.Custom"
         Title="Window1" Height="800" Width="600"
         WindowState="Maximized"
         
@@ -20,31 +16,12 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
-
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+
+        <ns:DataFilterControl ItemsSource="{Binding FiltersTree}" FilterCommand="{Binding QueryCommand}" />
         
-
-        <Border>
-            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <Expander IsExpanded="True">
-                    <Expander.Header>
-                        <TextBlock Text="Filter" Height="25" Foreground="Gray" />
-                    </Expander.Header>
-                    <Expander.Content>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <ItemsControl ItemsSource="{Binding FiltersTree}" ItemTemplate="{StaticResource level1}" />
-                            <Button Grid.Row="2" Content="Query" Command="{Binding QueryCommand}" Height="20" />
-                        </Grid>
-                    </Expander.Content>
-                </Expander>
-            </ScrollViewer>
-        </Border>
-
+        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

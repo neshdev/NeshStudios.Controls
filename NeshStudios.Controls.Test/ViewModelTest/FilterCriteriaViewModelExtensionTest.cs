@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NeshStudios.Target.ViewModel;
 using NeshStudios.Target;
 using System.Linq;
+using NeshStudios.Custom.ViewModel;
+using NeshStudios.Custom.Model;
 
 
 namespace NeshStudios.Controls.Test.ViewModelTest
@@ -19,8 +21,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.Equals;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.Equals;
             fcvm.PropertyName = "FirstName";
             fcvm.SearchObject = "dhinesh";
             fcvm.Type = typeof(Person);
@@ -41,8 +43,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.DoesNotEqual;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.DoesNotEqual;
             fcvm.PropertyName = "FirstName";
             fcvm.SearchObject = "dhinesh";
             fcvm.Type = typeof(Person);
@@ -63,8 +65,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.IsGreaterThan;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.IsGreaterThan;
             fcvm.PropertyName = "Age";
             fcvm.SearchObject = "21";
             fcvm.Type = typeof(Person);
@@ -85,8 +87,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.IsLessThan;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.IsLessThan;
             fcvm.PropertyName = "Age";
             fcvm.SearchObject = "21";
             fcvm.Type = typeof(Person);
@@ -107,8 +109,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.IsGreaterThanOrEqualTo;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.IsGreaterThanOrEqualTo;
             fcvm.PropertyName = "Age";
             fcvm.SearchObject = "21";
             fcvm.Type = typeof(Person);
@@ -129,8 +131,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.IsLessThanOrEqualTo;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.IsLessThanOrEqualTo;
             fcvm.PropertyName = "Age";
             fcvm.SearchObject = "21";
             fcvm.Type = typeof(Person);
@@ -151,8 +153,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.StartsWith;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.StartsWith;
             fcvm.PropertyName = "FirstName";
             fcvm.SearchObject = "dhi";
             fcvm.Type = typeof(Person);
@@ -173,8 +175,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.Contains;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.Contains;
             fcvm.PropertyName = "FirstName";
             fcvm.SearchObject = "nes";
             fcvm.Type = typeof(Person);
@@ -195,8 +197,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.DoesNotContain;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.DoesNotContain;
             fcvm.PropertyName = "FirstName";
             fcvm.SearchObject = "nes";
             fcvm.Type = typeof(Person);
@@ -217,8 +219,8 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             //act
             var fcvm = new FilterCriteriaViewModel();
             fcvm.IsCaseInsensitive = false;
-            fcvm.LogicalOperator = Target.Model.LogicalOperator.Where;
-            fcvm.Operator = Target.Model.Operator.EndsWith;
+            fcvm.LogicalOperator = LogicalOperator.Where;
+            fcvm.Operator = Operator.EndsWith;
             fcvm.PropertyName = "FirstName";
             fcvm.SearchObject = "esh";
             fcvm.Type = typeof(Person);

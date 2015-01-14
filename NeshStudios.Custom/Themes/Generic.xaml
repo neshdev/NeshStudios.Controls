@@ -296,8 +296,8 @@
             </controls:HeaderFooterContentControl.Content>
             <controls:HeaderFooterContentControl.Footer>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Single" Command="{Binding AddFilterCommand}" />
-                    <Button Content="Group" Command="{Binding AddGroupCommand}" />
+                    <Button ToolTip="Add new filter condition" Content="Single" Command="{Binding AddFilterCommand}" />
+                    <Button ToolTip="Add new filter condition" Content="Group" Command="{Binding AddGroupCommand}" />
                 </StackPanel>
             </controls:HeaderFooterContentControl.Footer>
         </controls:HeaderFooterContentControl>

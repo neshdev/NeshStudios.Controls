@@ -5,6 +5,8 @@ using NeshStudios.Target;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using NeshStudios.Custom.ViewModel;
+using NeshStudios.Custom.Model;
 
 
 namespace NeshStudios.Controls.Test.ViewModelTest
@@ -21,9 +23,9 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             {
                 Items= new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
                 },
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
             };
 
             var expression = fvm.CreateExpression();
@@ -42,10 +44,10 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             {
                 Items = new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.And, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "dev", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.And, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "dev", Type = typeof(Person),},
                 },
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
             };
 
             var expression = fvm.CreateExpression();
@@ -68,10 +70,10 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             {
                 Items = new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Or, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "yen", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Or, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "yen", Type = typeof(Person),},
                 },
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
             };
 
             var expression = fvm.CreateExpression();
@@ -94,10 +96,10 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             {
                 Items = new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.AndNot, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "yen", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.AndNot, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "yen", Type = typeof(Person),},
                 },
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
             };
 
             var expression = fvm.CreateExpression();
@@ -120,10 +122,10 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             {
                 Items = new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.OrNot, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "yen", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.OrNot, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "yen", Type = typeof(Person),},
                 },
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
             };
 
             var expression = fvm.CreateExpression();
@@ -146,11 +148,11 @@ namespace NeshStudios.Controls.Test.ViewModelTest
             {
                 Items = new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.And, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "dev", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Or, Operator = Target.Model.Operator.IsGreaterThanOrEqualTo, PropertyName = "Age",SearchObject = "21", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.And, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "dev", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Or, Operator = Operator.IsGreaterThanOrEqualTo, PropertyName = "Age",SearchObject = "21", Type = typeof(Person),},
                 },
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
             };
 
             var expression = fvm.CreateExpression();
@@ -172,18 +174,18 @@ namespace NeshStudios.Controls.Test.ViewModelTest
 
             var fvm = new FiltersViewModel<Person>
             {
-                LogicalOperator = Target.Model.LogicalOperator.Where,
+                LogicalOperator = LogicalOperator.Where,
                 Items = new ObservableCollection<Object>()
                 {
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
-                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.And, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "dev", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "dhi", Type = typeof(Person),},
+                    new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.And, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "dev", Type = typeof(Person),},
                     new FiltersViewModel<Person> 
                     {
-                        LogicalOperator = Target.Model.LogicalOperator.Or,
+                        LogicalOperator = LogicalOperator.Or,
                         Items = new ObservableCollection<object>()
                         {
-                            new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.Where, Operator = Target.Model.Operator.Contains, PropertyName = "FirstName",SearchObject = "asc", Type = typeof(Person),},
-                            new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = Target.Model.LogicalOperator.And, Operator = Target.Model.Operator.Contains, PropertyName = "LastName",SearchObject = "port", Type = typeof(Person),},
+                            new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.Where, Operator = Operator.Contains, PropertyName = "FirstName",SearchObject = "asc", Type = typeof(Person),},
+                            new FilterCriteriaViewModel { IsCaseInsensitive = false, LogicalOperator = LogicalOperator.And, Operator = Operator.Contains, PropertyName = "LastName",SearchObject = "port", Type = typeof(Person),},
                         },
                     },
                 },
