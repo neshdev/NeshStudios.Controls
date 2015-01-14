@@ -63,7 +63,6 @@ namespace NeshStudios.Target.ViewModel
             return currentType;
         }
         
-
         public OperatorCollection OperatorCollection
         {
             get
@@ -223,10 +222,6 @@ namespace NeshStudios.Target.ViewModel
             }
         }
 
-
-
-
-
         private bool _IsCaseInsensitive;
 
         public bool IsCaseInsensitive
@@ -244,11 +239,5 @@ namespace NeshStudios.Target.ViewModel
                 }
             }
         }
-
-        
-
-        
-
-        
     }
 }

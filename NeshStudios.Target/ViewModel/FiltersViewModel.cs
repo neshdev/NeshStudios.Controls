@@ -90,9 +90,10 @@ namespace NeshStudios.Target.ViewModel
                 {
                     LogicalOperators = new LogicalOperatorCollection(collection),
                     LogicalOperator = logicalOperator, 
-                    Operator = Operator.Equals,
+                    Operator = Operator.Contains,
                     PropertyNames = properties,
                     Type = typeof(T),
+                    SearchObject = "",
                 });
             });
 
