@@ -58,7 +58,21 @@ namespace NeshStudios.Target.ViewModel
                 if (item.PropertyType.IsClass && !(item.PropertyType.Module.ScopeName == "CommonLanguageRuntimeLibrary"))
                 {
                     this.CreatePropertyList(item.PropertyType, values, propertyName + ".");
-                }                
+                }
+                //need to think about how to implement collections
+                //todo, does not support collection types
+                //else if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(IDictionary<,>))
+                //{
+                    
+                //}
+                //else if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                //{
+                   
+                //}
+                //else if (item.PropertyType.GetInterface(typeof(IEnumerable<>).FullName) != null)
+                //{
+                   
+                //}
                 else
                 {
                     values.Add(baseName + propertyName);
@@ -75,9 +89,6 @@ namespace NeshStudios.Target.ViewModel
             CreatePropertyList(typeof(T), list , string.Empty);
             properties = list;
                 
-                //typeof(T).GetProperties().Select(x => x.Name).ToList();
-
-
             this.Items = new ObservableCollection<object>();
 
             this.AddFilterCommand = new RelayCommand((o) =>
@@ -86,12 +97,13 @@ namespace NeshStudios.Target.ViewModel
                 var logicalOperator = this.Items.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
                 
 
-                this.Items.Add(new FilterCriteriaViewModel 
+                this.Items.Add(new FilterCriteriaViewModel
                 {
                     LogicalOperators = new LogicalOperatorCollection(collection),
                     LogicalOperator = logicalOperator, 
                     Operator = Operator.Contains,
                     PropertyNames = properties,
+                    PropertyName = properties.First(),
                     Type = typeof(T),
                     SearchObject = "",
                 });

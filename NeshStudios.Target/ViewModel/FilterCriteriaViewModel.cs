@@ -19,10 +19,9 @@ namespace NeshStudios.Target.ViewModel
                     return typeof(string);
                 }
                 else
-                {
+                {                    
                     var results = FollowPropertyPath(this.Type, this.PropertyName);
                     return results;
-                    //return this.Type.GetProperty(this.PropertyName).PropertyType;
                 }
             }
         }
@@ -73,23 +72,55 @@ namespace NeshStudios.Target.ViewModel
                 var type = this.PropertyType;
                 if (typeof(string) == type || typeof(char) == type)
                 {
+                    this.SearchObject = this.SearchObject.ToString();
                     return new OperatorCollection(OperatorCollection.CreateStringCollection());
                 }
-                else if (typeof(int) == type || typeof(double) == type || typeof(float) == type || typeof(decimal) == type)
+                else if (typeof(int) == type)
                 {
+                    var input = 0;
+                    var isSuccess = Int32.TryParse(this.SearchObject.ToString(), out input);
+                    this.SearchObject = isSuccess ? input : 0;
+                    return new OperatorCollection(OperatorCollection.CreateNumberCollection());
+                }
+                else if (typeof(double) == type)
+                {
+                    var input = 0d;
+                    var isSuccess = Double.TryParse(this.SearchObject.ToString(), out input);
+                    this.SearchObject = isSuccess ? input : 0d;
+                    return new OperatorCollection(OperatorCollection.CreateNumberCollection());
+                }
+                else if (typeof(float) == type )
+                {
+                    var input = 0f;
+                    var isSuccess = float.TryParse(this.SearchObject.ToString(), out input);
+                    this.SearchObject = isSuccess ? input : 0f;
+                    return new OperatorCollection(OperatorCollection.CreateNumberCollection());
+                }
+                else if (typeof(decimal) == type)
+                {
+                    var input = 0m;
+                    var isSuccess = Decimal.TryParse(this.SearchObject.ToString(), out input);
+                    this.SearchObject = isSuccess ? input : 0m;
                     return new OperatorCollection(OperatorCollection.CreateNumberCollection());
                 }
                 else if (typeof(DateTime) == type)
                 {
+                    var input = DateTime.Now.Date;
+                    var isSuccess = DateTime.TryParse(this.SearchObject.ToString(), out input);
+                    this.SearchObject = isSuccess ? input : DateTime.Now.Date;
                     return new OperatorCollection(OperatorCollection.CreateDateCollection());
                 }
                 else if (typeof(bool) == type)
                 {
+                    var input = false;
+                    var isSuccess = Boolean.TryParse(this.SearchObject.ToString(), out input);
+                    this.SearchObject = isSuccess ? input : false;
                     return new OperatorCollection(OperatorCollection.CreateBoolCollection());
                 }       
                 else
                 {
-                    return new OperatorCollection(OperatorCollection.CreateFirstCollection());
+                    this.SearchObject = "";
+                    return new OperatorCollection(OperatorCollection.CreateStringCollection());
                 }
             }
         }
