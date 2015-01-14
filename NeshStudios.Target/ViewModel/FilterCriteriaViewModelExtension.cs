@@ -10,8 +10,28 @@ namespace NeshStudios.Target.ViewModel
 {
     public static class FilterCriteriaViewModelExtension
     {
+        public static void Validate(this FilterCriteriaViewModel fcvm)
+        {
+            if (string.IsNullOrEmpty( fcvm.PropertyName))
+            {
+                throw new ArgumentException("PropertyName cannot be empty or null");
+            }
+
+            if (!fcvm.PropertyNames.Any(x=> x == fcvm.PropertyName))
+            {
+                throw new ArgumentException("PropertyName does not exists in class " + fcvm.Type.Name);
+            }
+
+            if ( fcvm.SearchObject == null)
+            {
+                throw new ArgumentException("SearchObject cannot be null");
+            }
+        }
+
         public static Expression<Func<T, bool>> CreateExpression<T>(this FilterCriteriaViewModel vm)
         {
+            vm.Validate();
+
             Expression operatorExpression = null;
             MethodInfo method = null;
             ParameterExpression pe = Expression.Parameter(vm.Type, "x");
@@ -74,24 +94,7 @@ namespace NeshStudios.Target.ViewModel
                     Expression.Equal(property, constant);
                     break;
             }
-
-
-            switch (vm.LogicalOperator)
-            {
-                case Model.LogicalOperator.WhereNot:
-                    operatorExpression = Expression.Not(operatorExpression);
-                    break;
-                case NeshStudios.Target.Model.LogicalOperator.AndNot:
-                    operatorExpression = Expression.Not(operatorExpression);
-                    break;
-                case NeshStudios.Target.Model.LogicalOperator.OrNot:
-                    operatorExpression = Expression.Not(operatorExpression);
-                    break;
-                default:
-                    break;
-            }
-
-
+            
             return Expression.Lambda<Func<T, bool>>(operatorExpression, pe);
         }
     }

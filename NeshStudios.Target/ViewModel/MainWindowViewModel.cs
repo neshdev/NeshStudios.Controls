@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using NeshStudios.Target.Common;
 
 namespace NeshStudios.Target.ViewModel
 {
@@ -46,10 +47,6 @@ namespace NeshStudios.Target.ViewModel
             }
         }
 
-        
-
-
-
         private ObservableCollection<Person> _Persons;
 
         public ObservableCollection<Person> Persons
@@ -74,84 +71,13 @@ namespace NeshStudios.Target.ViewModel
         {
             QueryCommand = new RelayCommand((o) =>
             {
-                var list = FiltersViewModelExtensions.CreateLambda(this.FiltersTree[0], MasterList);
+                var list = this.FiltersTree[0].Filter(this.MasterList);
                 this.Persons = new ObservableCollection<Person>(list);
             });
 
             FiltersTree = new ObservableCollection<FiltersViewModel<Person>>() { new FiltersViewModel<Person>() };
 
-            this.MasterList = new ObservableCollection<Person>()
-            {
-                new Person 
-                { 
-                    Address = new Address
-                    {
-                        City = "1234",
-                        Line1 = "Nesh Address",
-                        Line2 = "something else sillt",
-                        State = "NJ",
-                        Zip = "23451",
-                    }, 
-                    Age=21, 
-                    FirstName="Dhinesh", 
-                    LastName="Devanathan",
-                    BirthDate=DateTime.Now.Date,
-                    IsActive = true,
-                    Invoices = new List<Invoice>()
-                    {
-                        new Invoice { ItemName = "Halo", Price=29.00m},
-                        new Invoice { ItemName = "Halo 2", Price=39.00m},
-                        new Invoice { ItemName = "Halo 3", Price=29.00m},
-                        new Invoice { ItemName = "Halo 4", Price=39.00m},
-                    },
-                },
-                new Person 
-                { 
-                    Address = new Address
-                    {
-                        City = "1234",
-                        Line1 = "Greg Address",
-                        Line2 = "something else sillt",
-                        State = "NJ",
-                        Zip = "23451",
-                    }, 
-                    Age=26, 
-                    FirstName="Greg", 
-                    LastName="Yen",
-                    BirthDate=DateTime.Now.AddDays(20).Date,
-                    IsActive = true,
-                    Invoices = new List<Invoice>()
-                    {
-                        new Invoice { ItemName = "SSB", Price=29.00m},
-                        new Invoice { ItemName = "SSB 2", Price=39.00m},
-                        new Invoice { ItemName = "SSB 3", Price=29.00m},
-                        new Invoice { ItemName = "SSB 4", Price=39.00m},
-                    },
-                },
-                new Person 
-                { 
-                    Address = new Address
-                    {
-                        City = "1234",
-                        Line1 = "Harija address",
-                        Line2 = "something else sillt",
-                        State = "NJ",
-                        Zip = "23451",
-                    }, 
-                    Age=16, 
-                    FirstName="Harija", 
-                    LastName="Yalamanchi",
-                    BirthDate=DateTime.Now.AddDays(-20).Date,
-                    IsActive = false,
-                    Invoices = new List<Invoice>()
-                    {
-                        new Invoice { ItemName = "Jacket", Price=29.00m},
-                        new Invoice { ItemName = "Shirt", Price=39.00m},
-                        new Invoice { ItemName = "Jeans", Price=29.00m},
-                        new Invoice { ItemName = "Dress Pants", Price=39.00m},
-                    },
-                },
-            };
+            this.MasterList = SampleData.CreatePersons();
 
             this.Persons = new ObservableCollection<Person>(MasterList);
         }

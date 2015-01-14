@@ -324,16 +324,32 @@
             </ScrollViewer>
         </Border>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Persons}" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" IsReadOnly="True" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Address.Line1}" Header="Line1" />
-                <DataGridTextColumn Binding="{Binding Address.Line2}" Header="Line2" />
-                <DataGridTextColumn Binding="{Binding Address.City}" Header="City" />
-                <DataGridTextColumn Binding="{Binding Address.State}" Header="State" />
-                <DataGridTextColumn Binding="{Binding Address.Zip}" Header="Zip" />
-                
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0"  ItemsSource="{Binding MasterList}" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" IsReadOnly="True" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Address.Line1}" Header="Line1" />
+                    <DataGridTextColumn Binding="{Binding Address.Line2}" Header="Line2" />
+                    <DataGridTextColumn Binding="{Binding Address.City}" Header="City" />
+                    <DataGridTextColumn Binding="{Binding Address.State}" Header="State" />
+                    <DataGridTextColumn Binding="{Binding Address.Zip}" Header="Zip" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid Grid.Column="2"  ItemsSource="{Binding Persons}" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" IsReadOnly="True" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Address.Line1}" Header="Line1" />
+                    <DataGridTextColumn Binding="{Binding Address.Line2}" Header="Line2" />
+                    <DataGridTextColumn Binding="{Binding Address.City}" Header="City" />
+                    <DataGridTextColumn Binding="{Binding Address.State}" Header="State" />
+                    <DataGridTextColumn Binding="{Binding Address.Zip}" Header="Zip" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
 
         <Button Grid.Row="2" Content="Query" Command="{Binding QueryCommand}" Height="20" />
     </Grid>
