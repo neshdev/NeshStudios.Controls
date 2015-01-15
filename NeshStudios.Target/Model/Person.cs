@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NeshStudios.Target
+namespace NeshStudios.Target.Model
 {
     public class Person
     {

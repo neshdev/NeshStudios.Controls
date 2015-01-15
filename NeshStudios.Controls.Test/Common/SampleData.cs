@@ -1,4 +1,5 @@
 ﻿using NeshStudios.Target;
+using NeshStudios.Target.Model;
 using NLipsum.Core;
 using System;
 using System.Collections.Generic;

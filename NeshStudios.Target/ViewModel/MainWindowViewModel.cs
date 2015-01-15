@@ -8,6 +8,7 @@ using System.Windows.Input;
 using NeshStudios.Target.Common;
 using NeshStudios.Custom.ViewModel;
 using NeshStudios.Custom.Framework;
+using NeshStudios.Target.Model;
 
 namespace NeshStudios.Target.ViewModel
 {

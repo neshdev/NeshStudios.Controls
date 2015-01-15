@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using NeshStudios.Custom.ViewModel;
 using NeshStudios.Custom.Model;
+using NeshStudios.Target.Model;
 
 
 namespace NeshStudios.Controls.Test.ViewModelTest
