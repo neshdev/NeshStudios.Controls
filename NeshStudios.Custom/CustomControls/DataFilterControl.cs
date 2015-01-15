@@ -44,11 +44,11 @@ namespace NeshStudios.Custom.CustomControls
     ///     <MyNamespace:DataFilterControl/>
     ///
     /// </summary>
-    public class DataFilterControl : ItemsControl
+    public class DataFilter : ItemsControl
     {
-        static DataFilterControl()
+        static DataFilter()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DataFilterControl), new FrameworkPropertyMetadata(typeof(DataFilterControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DataFilter), new FrameworkPropertyMetadata(typeof(DataFilter)));
         }
 
         public ICommand FilterCommand
@@ -59,7 +59,7 @@ namespace NeshStudios.Custom.CustomControls
 
         // Using a DependencyProperty as the backing store for FilterCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FilterCommandProperty =
-            DependencyProperty.Register("FilterCommand", typeof(ICommand), typeof(DataFilterControl), new FrameworkPropertyMetadata(null));
+            DependencyProperty.Register("FilterCommand", typeof(ICommand), typeof(DataFilter), new FrameworkPropertyMetadata(null));
 
         
     }

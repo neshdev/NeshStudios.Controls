@@ -19,7 +19,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <ns:DataFilterControl ItemsSource="{Binding FiltersTree}" FilterCommand="{Binding QueryCommand}" />
+        <ns:DataFilter ItemsSource="{Binding FiltersTree}" FilterCommand="{Binding QueryCommand}" />
         
         
         <Grid Grid.Row="1">

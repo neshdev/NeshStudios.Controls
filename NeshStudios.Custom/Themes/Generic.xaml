@@ -84,7 +84,11 @@
     <SolidColorBrush x:Key="SelectedBrush" Color="Green" />
 
     <DataTemplate x:Key="StringDataTemplate">
-        <TextBox Width="300" Text="{Binding DataContext.SearchObject, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Width="300" Text="{Binding DataContext.SearchObject, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}, UpdateSourceTrigger=PropertyChanged}" >
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding FilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:DataFilter}}}" />
+            </TextBox.InputBindings>
+        </TextBox>
     </DataTemplate>
 
     <DataTemplate x:Key="DateTimeDataTemplate">
@@ -360,11 +364,11 @@
         </controls:HeaderFooterContentControl>
     </HierarchicalDataTemplate>
     
-    <Style TargetType="{x:Type controls:DataFilterControl}">
+    <Style TargetType="{x:Type controls:DataFilter}">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type controls:DataFilterControl}">
+                    <ControlTemplate TargetType="{x:Type controls:DataFilter}">
                         <ContentControl>
                             <Border>
                                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -379,7 +383,8 @@
                                                     <RowDefinition Height="auto" />
                                                 </Grid.RowDefinitions>
                                                 <ItemsControl ItemsSource="{TemplateBinding ItemsSource}" ItemTemplate="{StaticResource level1}" />
-                                                <Button Grid.Row="2" Content="Query" Command="{TemplateBinding Property=FilterCommand}" Height="20" />
+                                                <Button Grid.Row="2" Content="Query" Command="{TemplateBinding Property=FilterCommand}" Height="20">
+                                                </Button>
                                             </Grid>
                                         </Expander.Content>
                                     </Expander>
