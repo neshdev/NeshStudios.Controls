@@ -14,7 +14,9 @@ namespace NeshStudios.Target.Model
 
         public int Age { get; set; }
 
+        public int AddressId { get; set; }
         public Address Address { get; set; }
+        public Sport Sport { get; set; }
 
         public DateTime BirthDate { get; set; }
 
@@ -30,6 +32,15 @@ namespace NeshStudios.Target.Model
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+
+        public int PersonId { get; set; }
+        public Person Person  { get; set;}
+    }
+
+    public class Sport
+    {
+        public string Name { get; set; }
+        //public Address Address { get; set; }
     }
 
     public class Invoice

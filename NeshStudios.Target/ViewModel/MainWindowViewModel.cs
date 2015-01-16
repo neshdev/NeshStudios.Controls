@@ -9,6 +9,7 @@ using NeshStudios.Target.Common;
 using NeshStudios.Custom.ViewModel;
 using NeshStudios.Custom.Framework;
 using NeshStudios.Target.Model;
+using NeshStudios.Custom.Utility;
 
 namespace NeshStudios.Target.ViewModel
 {
@@ -78,7 +79,13 @@ namespace NeshStudios.Target.ViewModel
                 this.Persons = new ObservableCollection<Person>(list);
             });
 
-            FiltersTree = new ObservableCollection<FiltersViewModel<Person>>() { new FiltersViewModel<Person>() };
+            var properties = PropertyListBuilder.CreatePropertyList<Person>();
+            var address = PropertyListBuilder.CreatePropertyList<Address>("Address");
+            properties.AddRange(address);
+            properties.Insert(0, "Age");
+            
+
+            FiltersTree = new ObservableCollection<FiltersViewModel<Person>>() { new FiltersViewModel<Person>(properties) };
 
             this.MasterList = SampleData.CreatePersons();
 

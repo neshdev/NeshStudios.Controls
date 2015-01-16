@@ -92,11 +92,19 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DateTimeDataTemplate">
-        <DatePicker Width="300" SelectedDate="{Binding DataContext.SearchObject, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}, UpdateSourceTrigger=PropertyChanged}" />
+        <DatePicker Width="300" SelectedDate="{Binding DataContext.SearchObject, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}, UpdateSourceTrigger=PropertyChanged}">
+            <DatePicker.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding FilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:DataFilter}}}" />
+            </DatePicker.InputBindings>
+        </DatePicker>
     </DataTemplate>
 
     <DataTemplate x:Key="BooleanDataTemplate">
-        <CheckBox IsThreeState="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="{Binding DataContext.SearchObject, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}, UpdateSourceTrigger=PropertyChanged}" />
+        <CheckBox IsThreeState="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="{Binding DataContext.SearchObject, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}, UpdateSourceTrigger=PropertyChanged}" >
+            <CheckBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding FilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:DataFilter}}}" />
+            </CheckBox.InputBindings>
+        </CheckBox>
     </DataTemplate>
 
 

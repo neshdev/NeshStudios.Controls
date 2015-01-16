@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using NeshStudios.Custom.Model;
 using NeshStudios.Custom.Framework;
+using System.Collections;
+using NeshStudios.Custom.Utility;
 
 
 namespace NeshStudios.Custom.ViewModel
@@ -49,59 +51,26 @@ namespace NeshStudios.Custom.ViewModel
             }
         }
 
+        
 
-        private void CreatePropertyList(Type t, List<string> values, string baseName)
+        public List<string> Properties { get; private set; }
+
+        public FiltersViewModel(List<string> properties)
         {
-            foreach (var item in t.GetProperties())
-            {
-                var propertyName = item.Name;
+            this.Properties = properties;
 
-                if (item.PropertyType.IsClass && !(item.PropertyType.Module.ScopeName == "CommonLanguageRuntimeLibrary"))
-                {
-                    this.CreatePropertyList(item.PropertyType, values, propertyName + ".");
-                }
-                //need to think about how to implement collections
-                //todo, does not support collection types
-                //else if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(IDictionary<,>))
-                //{
-                    
-                //}
-                //else if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
-                //{
-                   
-                //}
-                //else if (item.PropertyType.GetInterface(typeof(IEnumerable<>).FullName) != null)
-                //{
-                   
-                //}
-                else
-                {
-                    values.Add(baseName + propertyName);
-                }
-            }
-        }
-
-
-        List<string> properties;
-
-        public FiltersViewModel()
-        {
-            var list = new List<string>();
-            CreatePropertyList(typeof(T), list , string.Empty);
-            properties = list;
-                
             this.Items = new ObservableCollection<object>();
 
             this.AddFilterCommand = new RelayCommand((o) =>
             {
                 var collection = this.Items.Count == 0 ? LogicalOperatorCollection.CreateFirstCollection() : LogicalOperatorCollection.CreateNCollection();
                 var logicalOperator = this.Items.Count == 0 ? LogicalOperator.Where : Model.LogicalOperator.And;
-                
+
 
                 this.Items.Add(new FilterCriteriaViewModel
                 {
                     LogicalOperators = new LogicalOperatorCollection(collection),
-                    LogicalOperator = logicalOperator, 
+                    LogicalOperator = logicalOperator,
                     Operator = Operator.Contains,
                     PropertyNames = properties,
                     PropertyName = properties.First(),
@@ -113,7 +82,7 @@ namespace NeshStudios.Custom.ViewModel
             this.RemoveFilterCommand = new RelayCommand((o) =>
             {
                 var item = o as FilterCriteriaViewModel;
-                if ( item != null)
+                if (item != null)
                 {
                     this.Items.Remove(item);
                 }
@@ -143,11 +112,17 @@ namespace NeshStudios.Custom.ViewModel
             });
 
 
-            this.AddCommands = new ObservableCollection<Tuple<string,ICommand>> 
+            this.AddCommands = new ObservableCollection<Tuple<string, ICommand>> 
             { 
                 Tuple.Create("Single",this.AddFilterCommand), 
                 Tuple.Create("Group",this.AddGroupCommand), 
             };
+        }
+
+        public FiltersViewModel()
+            : this(PropertyListBuilder.CreatePropertyList<T>())
+        {
+            
         }
 
         private ObservableCollection<object> _Items;

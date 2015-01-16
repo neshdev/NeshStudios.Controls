@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="CustomControls\HeaderFooterContentControl.cs" />
     <Compile Include="Utility\CollectionViewShaper.cs" />
+    <Compile Include="Utility\PropertyListBuilder.cs" />
     <Compile Include="ViewModel\FilterCriteriaViewModel.cs" />
     <Compile Include="ViewModel\FilterCriteriaViewModelExtension.cs" />
     <Compile Include="ViewModel\FiltersViewModel.cs" />
